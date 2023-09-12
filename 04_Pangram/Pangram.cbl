@@ -22,7 +22,7 @@
        PROCEDURE DIVISION.
 
        MOVE
-       'the quick brown fox jumps over the lazy dog'
+       'a quick movement of the enemy will jeopardize five gunboats'
             TO WS-SENTENCE.
 
        PANGRAM.
