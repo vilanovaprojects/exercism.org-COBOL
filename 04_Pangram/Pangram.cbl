@@ -1,0 +1,53 @@
+      *
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. PANGRAM.
+       ENVIRONMENT DIVISION.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 WS-SENTENCE PIC X(60).
+       01 WS-SENTENCE-REDEF REDEFINES WS-SENTENCE.
+         05 WS-LETTER PIC X OCCURS 60 TIMES.
+
+       01 THELOWCASEALPHABET PIC X(26)
+           VALUE "abcdefghijklmnopqrstuvwxyz".
+
+       01 ALPHABET-REDEF REDEFINES THELOWCASEALPHABET.
+         05 ALP-LETTER PIC X OCCURS 26 TIMES.
+
+       01 COUNTERSENTENCE PIC 99.
+       01 COUNTERALPHABET PIC 99.
+
+
+       01 WS-RESULT PIC 9.
+       PROCEDURE DIVISION.
+
+       MOVE
+       'the quick brown fox jumps over the lazy dog'
+            TO WS-SENTENCE.
+
+       PANGRAM.
+         PERFORM VARYING COUNTERSENTENCE FROM 1 BY 1
+                         UNTIL COUNTERSENTENCE > 60
+           PERFORM VARYING COUNTERALPHABET FROM 1 BY 1
+                         UNTIL COUNTERALPHABET > 26
+             IF WS-LETTER(COUNTERSENTENCE) EQUALS
+                ALP-LETTER(COUNTERALPHABET) THEN
+                MOVE "*" TO ALP-LETTER(COUNTERALPHABET)
+             END-IF
+
+           END-PERFORM
+         END-PERFORM.
+
+         IF THELOWCASEALPHABET EQUAL "**************************" THEN
+           MOVE  1 TO WS-RESULT
+         ELSE MOVE 0 TO WS-RESULT
+         END-IF.
+
+         DISPLAY WS-RESULT.
+
+       PANGRAM-END.
+
+
+       END-OF-PROGRAM.
+            STOP RUN.
+       END PROGRAM PANGRAM.
