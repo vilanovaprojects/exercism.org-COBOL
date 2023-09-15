@@ -1,0 +1,37 @@
+      *
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. DARTS.
+       ENVIRONMENT DIVISION.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 WS-X PIC 99V9.
+       01 WS-Y PIC 99V9.
+       01 WS-RESULT PIC 99.
+       01 TEMP-X PIC 9999V99.
+       01 TEMP-Y PIC 9999V99.
+       01 R PIC 9999V9999.
+       PROCEDURE DIVISION.
+
+       DARTS.
+       COMPUTE TEMP-X = WS-X *2 END-COMPUTE.
+       COMPUTE TEMP-Y = WS-Y *2 END-COMPUTE.
+
+       COMPUTE R = FUNCTION SQRT(TEMP-X ** 2 + TEMP-Y ** 2)/2
+       END-COMPUTE.
+
+
+       EVALUATE R
+         WHEN > 10
+           MOVE 0 TO WS-RESULT
+         WHEN > 5
+           MOVE 1 TO WS-RESULT
+         WHEN > 1
+           MOVE 5 TO WS-RESULT
+         WHEN OTHER
+           MOVE 10 TO WS-RESULT
+       END-EVALUATE.
+
+
+       END-OF-PROGRAM.
+           STOP RUN.
+       END PROGRAM DARTS.
