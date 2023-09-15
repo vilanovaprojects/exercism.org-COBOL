@@ -1,0 +1,37 @@
+      *
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. SIEVE.
+       ENVIRONMENT DIVISION.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 WS-LIMIT PIC 9999.
+       01 WS-RESULT PIC 999 OCCURS 1000 TIMES.
+       01 WS-COUNT PIC 9999.
+       01 CONTAR PIC 9999.
+       01 CONTAR2 PIC 9999.
+       01 NOTPRIME PIC 9.
+
+
+       PROCEDURE DIVISION.
+
+       SIEVE.
+       MOVE 1 TO CONTAR2.
+       INITIALIZE WS-COUNT
+                  CONTAR.
+
+       PERFORM VARYING WS-COUNT FROM 2 BY 1 UNTIL WS-COUNT > WS-LIMIT
+         INITIALIZE NOTPRIME
+      *----------------PRIMES----------------------
+         PERFORM VARYING CONTAR FROM 2 BY 1 UNTIL CONTAR > WS-COUNT - 1
+           IF FUNCTION MOD(WS-COUNT,CONTAR) = 0 THEN
+             MOVE 1 TO NOTPRIME
+           END-IF
+         END-PERFORM
+      *----------------PRIMES----------------------
+         IF NOTPRIME = 0 THEN
+           MOVE WS-COUNT TO WS-RESULT(CONTAR2)
+           ADD 1 TO CONTAR2
+         END-IF
+
+       END-PERFORM.
+       MOVE 0 TO WS-COUNT.
