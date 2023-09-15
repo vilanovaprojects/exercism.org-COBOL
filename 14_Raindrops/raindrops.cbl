@@ -1,0 +1,33 @@
+      *
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. raindrops.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 WS-NUMBER PIC 9(4).
+       01 WS-RESULT PIC X(20).
+       01 CONTADOR  PIC 99.
+       01 PLXNG.
+         05 PLING  PIC X(5).
+         05 PLANG  PIC X(5).
+         05 PLONG  PIC X(5).
+
+       PROCEDURE DIVISION.
+
+       RAINDROPS.
+       INITIALIZE PLXNG.
+
+       IF FUNCTION MOD(WS-NUMBER,3) = 0 THEN
+         MOVE "Pling" TO PLING
+       END-IF.
+       IF FUNCTION MOD(WS-NUMBER,5) = 0 THEN
+         MOVE "Plang" TO PLANG
+       END-IF.
+       IF FUNCTION MOD(WS-NUMBER,7) = 0 THEN
+         MOVE "Plong" TO PLONG
+       END-IF.
+
+       IF PLXNG = SPACES THEN
+         MOVE WS-NUMBER TO WS-RESULT
+       ELSE
+         MOVE FUNCTION TRIM(PLXNG) TO WS-RESULT
+       END-IF.
