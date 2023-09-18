@@ -1,0 +1,75 @@
+      *
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. ROMAN-NUMERALS.
+       ENVIRONMENT DIVISION.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 WS-NUMBER PIC 9999.
+       01 WS-RESULT PIC X(20).
+       01 CONTADOR PIC 99.
+       01 TEMP PIC 9.
+       01 COUNTYEAR PIC 9.
+       01 ROMANNUMERALS.
+         05 RO-PLUS PIC X.
+         05 RO-FIVE PIC X.
+         05 RO-NEUTRAL PIC X.
+         05 THEOTHERS PIC X(7).
+
+
+       PROCEDURE DIVISION.
+
+       MOVE 48 TO WS-NUMBER.
+
+       ROMAN-NUMERALS.
+       INITIALIZE WS-RESULT COUNTYEAR.
+       MOVE "  MDCLXVI" TO ROMANNUMERALS.
+       MOVE 1 TO CONTADOR.
+
+       IF WS-NUMBER(1:1) < 4 THEN
+         PERFORM VARYING COUNTYEAR FROM 1 BY 1 UNTIL COUNTYEAR > 4
+          MOVE WS-NUMBER(COUNTYEAR:1) TO TEMP
+          PERFORM THEROMANALGORITHM
+          MOVE ROMANNUMERALS(3:7) TO ROMANNUMERALS
+         END-PERFORM
+       END-IF.
+       DISPLAY WS-RESULT.
+       ROMAN-NUMERALS-END.
+
+       THEROMANALGORITHM.
+         IF TEMP = 9 THEN
+           MOVE RO-NEUTRAL TO WS-RESULT(CONTADOR:1)
+           ADD 1 TO CONTADOR
+           MOVE RO-PLUS TO WS-RESULT(CONTADOR:1)
+           ADD 1 TO CONTADOR
+           MOVE 0 TO TEMP
+         ELSE
+           IF TEMP > 4 THEN
+             MOVE RO-FIVE TO WS-RESULT(CONTADOR:1)
+             ADD 1 TO CONTADOR
+             COMPUTE TEMP = TEMP - 5
+             PERFORM UNTIL TEMP = 0
+               MOVE RO-NEUTRAL TO WS-RESULT(CONTADOR:1)
+               ADD 1 TO CONTADOR
+               COMPUTE TEMP = TEMP - 1
+             END-PERFORM
+           ELSE
+             IF TEMP = 4 THEN
+               MOVE RO-NEUTRAL TO WS-RESULT(CONTADOR:1)
+               ADD 1 TO CONTADOR
+               MOVE RO-FIVE TO WS-RESULT(CONTADOR:1)
+               ADD 1 TO CONTADOR
+               MOVE 0 TO TEMP
+             ELSE
+               PERFORM UNTIL TEMP = 0
+               MOVE RO-NEUTRAL TO WS-RESULT(CONTADOR:1)
+               ADD 1 TO CONTADOR
+               COMPUTE TEMP = TEMP - 1
+               END-PERFORM
+             END-IF
+           END-IF
+         END-IF.
+       THEROMANALGORITHM-END.
+
+       END-OF-PROGRAM.
+           STOP RUN.
+       END PROGRAM ROMAN-NUMERALS.
